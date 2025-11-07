@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>시간의 발자취, 기후의 경고</title>
+  <style>
+    /* ===== 기본 스타일 ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    body {
+      background-color: #f6f8fb;
+      color: #333;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+    }
+
+    a { text-decoration: none; color: white; }
+
+    /* ===== 헤더 ===== */
+    header {
+      position: relative;
+      background: linear-gradient(120deg, #315c72, #5ea197);
+      color: white;
+      text-align: center;
+      padding: 90px 20px;
+      overflow: hidden;
+    }
+
+    header h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
+      animation: fadeDown 1.5s ease;
+    }
+
+    header p {
+      font-size: 1.2em;
+      opacity: 0.9;
+      animation: fadeUp 1.5s ease;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/8/8a/Earth_Eastern_Hemisphere.jpg') center/cover no-repeat;
+      opacity: 0.2;
+      z-index: 0;
+    }
+
+    header * { position: relative; z-index: 2; }
+
+    @keyframes fadeDown {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeUp {
+      0% {opacity: 0; transform: translateY(20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    /* ===== 내비게이션 ===== */
+    nav {
+      position: sticky;
+      top: 0;
+      background: #315c72;
+      text-align: center;
+      padding: 12px 0;
+      z-index: 100;
+    }
+
+    nav a {
+      margin: 0 18px;
+      font-weight: bold;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    nav a:hover { color: #ffe082; }
+
+    /* ===== 섹션 ===== */
+    section {
+      padding: 70px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    h2 {
+      color: #315c72;
+      border-left: 5px solid #5ea197;
+      padding-left: 10px;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+    }
+
+    .content-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      padding: 25px;
+      margin-bottom: 50px;
+      transition: 0.3s;
+    }
+
+    .content-box:hover { transform: translateY(-3px); }
+
+    /* ===== 타임라인 ===== */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+      margin-top: 25px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #5ea197;
+      border-radius: 2px;
+    }
+
+    .event {
+      position: relative;
+      margin-bottom: 35px;
+    }
+
+    .event::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #315c72;
+      top: 0;
+    }
+
+    .event h4 {
+      margin-left: 30px;
+      color: #315c72;
+      font-size: 1.1em;
+    }
+
+    .event p {
+      margin-left: 30px;
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    /* ===== 약속 입력 ===== */
+    #pledgeForm {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    #pledgeForm input, #pledgeForm button {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+
+    #pledgeForm button {
+      background: #5ea197;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    #pledgeForm button:hover { background: #315c72; }
+
+    #pledgeList {
+      margin-top: 20px;
+      background: #eef6f5;
+      border-radius: 8px;
+      padding: 15px;
+      min-height: 50px;
+    }
+
+    /* ===== 이미지 ===== */
+    .image-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .image-box img {
+      max-width: 90%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .image-box img:hover { transform: scale(1.03); }
+
+    /* ===== 푸터 ===== */
+    footer {
+      background: #315c72;
+      color: white;
+      text-align: center;
+      padding: 35px 0;
+      margin-top: 70px;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 700px) {
+      header h1 { font-size: 2.2em; }
+      nav a { margin: 0 10px; display: inline-block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== 헤더 ===== -->
+  <header id="top">
+    <h1>시간의 발자취, 기후의 경고</h1>
+    <p>역사로 배우는 생태·환경의 교훈</p>
+  </header>
+
+  <!-- ===== 내비게이션 ===== -->
+  <nav>
+    <a href="#planning">기획 개요</a>
+    <a href="#problem">문제의식</a>
+    <a href="#idea">핵심 아이디어</a>
+    <a href="#timeline">타임라인</a>
+    <a href="#pledge">나의 약속</a>
+  </nav>
+
+  <!-- ===== 기획 개요 ===== -->
+  <section id="planning">
+    <h2>📘 프로젝트 기획 개요</h2>
+    <div class="content-box">
+      <h3>프로젝트명</h3>
+      <p><b>시간의 발자취, 기후의 경고</b> — From History to Climate Future</p>
+
+      <h3>기획 의도</h3>
+      <p>
+        현대의 기후 위기는 인류 문명의 존속을 위협하는 가장 큰 문제입니다.  
+        그러나 이러한 위기는 과거에도 여러 차례 반복되었습니다.  
+        역사 전공자의 시각에서, 과거 문명들이 맞닥뜨렸던 환경 문제와 대응 방식을 탐구하여  
+        현재와 미래의 생태 위기에 대한 교훈을 얻고자 합니다.
+      </p>
+
+      <h3>목표</h3>
+      <ul>
+        <li>📚 역사 속 환경 변화 사례를 통해 기후 위기의 본질 이해</li>
+        <li>🌿 역사적 교훈을 바탕으로 현대 사회의 실천 방향 제시</li>
+        <li>💻 이를 시각화하고 참여를 유도하는 교육형 웹 플랫폼 구현</li>
+      </ul>
+
+      <h3>타깃</h3>
+      <p>중·고등학생 및 대학생 — 역사와 환경을 융합적으로 이해하고 싶은 학습자</p>
+
+      <h3>기대 효과</h3>
+      <p>
+        - 역사학이 환경문제 해결에 기여할 수 있음을 제시함  
+        - 사용자 참여형 ‘실천 약속’ 기능으로 환경 행동 유도  
+        - 학제 간 통합적 사고(인문+환경과학)를 촉진
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 문제의식 ===== -->
+  <section id="problem">
+    <h2>1️⃣ 문제의식</h2>
+    <div class="content-box">
+      <p>
+        인류의 역사는 기후와 환경의 영향을 끊임없이 받아왔습니다.  
+        <b>마야 문명의 붕괴</b>나 <b>조선 후기의 소빙기</b>는 단순한 자연현상이 아닌,  
+        인류의 대응 부족과 자원 남용이 불러온 결과였습니다.  
+        오늘날의 기후위기 역시 이러한 역사적 반복의 연장선상에 있습니다.
+        <br><br>
+        따라서 “과거의 실패를 돌아보는 일”은 곧 “미래의 생존 전략을 세우는 일”입니다.
+      </p>
+      <div class="image-box">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Maya_Civilization_map.gif" alt="마야 문명 지도">
+        <p style="font-size:0.85em; color:#666;">▲ 마야 문명 지도 (출처: Wikimedia Commons)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 핵심 아이디어 ===== -->
+  <section id="idea">
+    <h2>2️⃣ 핵심 아이디어</h2>
+    <div class="content-box">
+      <p>
+        <strong>💡 프로젝트 컨셉: “역사로 배우는 기후 변화 아카이브”</strong>
+      </p>
+      <ul>
+        <li>📜 역사 속 환경위기 데이터베이스 구축</li>
+        <li>🌡️ 문명 변동과 기후 변화를 시각화하는 타임라인</li>
+        <li>🧭 교훈 요약: 현대 사회에 적용 가능한 대응 전략 제시</li>
+        <li>🌍 참여형 코너: 사용자 실천 약속 저장</li>
+      </ul>
+
+      <p>
+        역사 전공자의 지식은 과거의 사료와 사건을 분석하여 <b>환경변화의 원인과 결과를 구조적으로 이해</b>할 수 있게 합니다.  
+        이를 통해 “기후위기의 반복을 끊는 인식의 변화”를 이끌어낼 수 있습니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 타임라인 ===== -->
+  <section id="timeline">
+    <h2>3️⃣ 문명과 기후 변화 타임라인</h2>
+    <div class="content-box timeline">
+      <div class="event">
+        <h4>기원전 2200년 — 메소포타미아 사막화</h4>
+        <p>과도한 관개농업 → 토양 염류화 → 생산성 하락 → 문명 쇠퇴</p>
+      </div>
+      <div class="event">
+        <h4>9세기 — 마야 문명의 붕괴</h4>
+        <p>가뭄 + 산림 남벌 → 식량 위기 → 사회 붕괴</p>
+      </div>
+      <div class="event">
+        <h4>17세기 — 조선 후기 소빙기</h4>
+        <p>기온 하락으로 인한 흉년 → 사회 불안, 환경 복구 정책 시행</p>
+      </div>
+      <div class="event">
+        <h4>21세기 — 현대 기후 위기</h4>
+        <p>산업화와 온실가스로 인한 온난화 → 인류 문명의 지속 가능성 위협</p>
+      </div>
+    </div>
+
+    <div class="image-box">
+      <img src="https://climate.nasa.gov/system/news_items/main_images/2975_PIA23172-16.jpg" alt="지구 기후 변화 시각화">
+      <p style="font-size:0.85em; color:#666;">▲ 지구 온난화로 인한 온도 상승 시각화 (출처: NASA)</p>
+    </div>
+  </section>
+
+  <!-- ===== 나의 약속 ===== -->
+  <section id="pledge">
+    <h2>4️⃣ 나의 실천 약속</h2>
+    <div class="content-box">
+      <p>
+        <i>“우리가 잊은 역사는 다시 반복된다.”</i><br>
+        이제 우리의 행동이 미래의 역사를 결정합니다.  
+        아래에 환경 실천 약속을 남겨보세요.
+      </p>
+
+      <form id="pledgeForm">
+        <input type="text" id="pledgeInput" placeholder="예: 일회용 컵 대신 텀블러 사용하기" required>
+        <button type="submit">약속하기 ✍️</button>
+      </form>
+
+      <div id="pledgeList"></div>
+    </div>
+  </section>
+
+  <!-- ===== 푸터 ===== -->
+  <footer>
+    <p>© 2025 시간의 발자취, 기후의 경고 | 역사로 배우는 지속 가능한 미래</p>
+  </footer>
+
+  <!-- ===== JavaScript ===== -->
+  <script>
+    const form = document.getElementById('pledgeForm');
+    const input = document.getElementById('pledgeInput');
+    const list = document.getElementById('pledgeList');
+
+    let pledges = JSON.parse(localStorage.getItem('pledges')) || [];
+
+    function renderPledges() {
+      list.innerHTML = pledges.length
+        ? pledges.map((p, i) => `<p>💬 ${i + 1}. ${p}</p>`).join('')
+        : '<p style="color:#777;">아직 등록된 약속이 없습니다.</p>';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = input.value.trim();
+      if (text) {
+        pledges.push(text);
+        localStorage.setItem('pledges', JSON.stringify(pledges));
+        input.value = '';
+        renderPledges();
+      }
+    });
+
+    renderPledges();
+  </script>
+</body>
+</html>
